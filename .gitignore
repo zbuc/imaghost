@@ -1,0 +1,20 @@
+.DS_Store
+MANIFEST
+/build
+/dist
+/tmp
+/doc
+/venv
+/release/build
+*.py[cdo]
+*.swp
+*.swo
+.coverage
+.idea
+
+# UI
+
+node_modules
+bower_components
+*.compiled.js
+*.map
