@@ -1,3 +1,7 @@
+/ssl
+/data
+
+
 .DS_Store
 MANIFEST
 /build
