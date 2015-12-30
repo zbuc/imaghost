@@ -1,19 +1,21 @@
+#!/usr/bin/env python
+
+from __future__ import (absolute_import, print_function, division)
 import imp
 import os
 import inspect
-
-
-class NotImplementedException(Exception):
-    pass
 
 
 class MigrationError(Exception):
     pass
 
 
+from flask import g
 from flask.ext.script import Manager
 
-from ghost import app, db_conn
+from ghost import app
+from interfaces.db import db_conn
+from ghost_exceptions import NotImplementedException
 
 manager = Manager(app)
 
@@ -73,6 +75,7 @@ def execute_migrations(migrations):
             module = imp.load_module(name, filehandle, pathname, description)
             module.migrate(db_conn)
             mark_migration_complete(migration[0])
+            g.db_modified = True
         except Exception, e:
             raise MigrationError("Error running %s: %s" % (name, e))
 

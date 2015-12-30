@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+from models import user
 
 
 # create the basic tables
@@ -17,3 +17,11 @@ def migrate(db_conn):
                         owner INTEGER,
                         FOREIGN KEY(owner) REFERENCES users(id)
                     )''')
+
+    db_conn.execute('''CREATE TABLE IF NOT EXISTS sessions (
+                        key TEXT PRIMARY KEY,
+                        val BLOB
+                    )''')
+
+    admin = user.User(name='admin', admin=1, password='password')
+    admin.save()
